@@ -7,9 +7,11 @@
   background: #FFAFBD;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #ffc3a0, #FFAFBD);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #ffc3a0, #FFAFBD); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  padding: 0 1rem;
+  padding: 0 2rem;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
 }
 
 .main-navigation-logo h1 {
@@ -27,19 +29,34 @@
   margin: 0 ;
   padding: 0;
   list-style: none;
+  align-items: center;
 }
 
 .main-navigation-items li {
   margin: 0 1rem;
 }
 
-.main-navigation-items a {
+.main-navigation-items a,
+.main-navigation-items button {
   text-decoration: none;
-  color: darkblue
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border: none;
+  font: inherit;
+  background: transparent;
+  cursor: pointer;
+  vertical-align: middle;
+  margin: 0;
+
 }
 
 .main-navigation-items a:hover,
 .main-navigation-items a:active,
-.main-navigation-items a.active {
-  color: blueviolet
+.main-navigation-items a.active,
+.main-navigation-items button:hover,
+.main-navigation-items button:active {
+  background: #ffffff;
+  color: #5101d1;
+  border-radius: 5px;
+  text-decoration: none;
 }
