@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Modal from "../Modal/Modal";
 import Backdrop from "../Backdrop/Backdrop";
+import EventList from "../Events/EventList/EventList";
+
 import AuthContext from "../../context/auth-context";
 
 import "./Events.css";
@@ -45,9 +47,6 @@ class Events extends Component {
       return;
     }
 
-    const event = { title, description, price, date };
-    console.log(event);
-
     const requestBody = {
       query: `
         mutation {
@@ -57,10 +56,6 @@ class Events extends Component {
             description
             price
             date
-            creator {
-              _id
-              email
-            }
           }
         }
       `
@@ -83,7 +78,20 @@ class Events extends Component {
         return res.json();
       })
       .then(resData => {
-        this.fetchEvent();
+        this.setState(prevState => {
+          const updatedEvents = [...prevState.events];
+          updatedEvents.push({
+            _id: resData.data.createEvent._id,
+            title: resData.data.createEvent.title,
+            description: resData.data.createEvent.description,
+            date: resData.data.createEvent.date,
+            price: resData.data.createEvent.price,
+            creator: {
+              _id: this.context.userId
+            }
+          });
+          return { events: updatedEvents };
+        });
       })
       .catch(err => {
         console.log(err);
@@ -136,14 +144,6 @@ class Events extends Component {
   };
 
   render() {
-    const eventList = this.state.events.map(event => {
-      return (
-        <li key={event._id} className="event-list-item">
-          {event.title}
-        </li>
-      );
-    });
-
     return (
       <React.Fragment>
         {this.state.creating && <Backdrop />}
@@ -188,7 +188,10 @@ class Events extends Component {
             </button>
           </div>
         )}
-        <ul className="events-list">{eventList}</ul>
+        <EventList
+          events={this.state.events}
+          authUserId={this.context.userId}
+        />
       </React.Fragment>
     );
   }
