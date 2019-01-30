@@ -3,7 +3,6 @@ const Event = require("../../models/event");
 
 const { transformBooking, transformEvent } = require("./merge");
 
-
 module.exports = {
   bookings: async (args, req) => {
     if (!req.isAuth) {
