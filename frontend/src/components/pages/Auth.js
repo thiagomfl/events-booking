@@ -27,9 +27,7 @@ class Auth extends Component {
     const email = this.emailEl.current.value;
     const password = this.passwordEl.current.value;
 
-    if (email.trim().length === 0 || password.trim().length === 0) {
-      return;
-    }
+    if (email.trim().length === 0 || password.trim().length === 0) return;
 
     let requestBody = {
       query: `
@@ -82,7 +80,7 @@ class Auth extends Component {
           this.context.login(
             resData.data.login.token,
             resData.data.login.userId,
-            resData.data.login.tokenExpiration,
+            resData.data.login.tokenExpiration
           );
         }
       })
